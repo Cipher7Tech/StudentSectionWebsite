@@ -1,6 +1,6 @@
 <?php
 
-@include 'config.php';
+@include 'config/config.php';
 
 if(isset($_POST['submit'])){
 
@@ -23,7 +23,7 @@ if(isset($_POST['submit'])){
       if($pass != $cpass){
          $error[] = 'password not matched!';
       }else{
-         $insert = "INSERT INTO user_form(name, email, password, user_type) VALUES('$name','$email','$pass','$user_type')";
+         $insert = "INSERT INTO user_form(name, email, password,cpassword, user_type) VALUES('$name','$email','$pass','$cpass','$user_type')";
          mysqli_query($conn, $insert);
          header('location:login_form.php');
       }

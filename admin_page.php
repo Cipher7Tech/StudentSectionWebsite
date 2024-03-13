@@ -1,41 +1,48 @@
-<?php
+<?php include('includes/header.php');?>
 
-@include 'config.php';
 
-session_start();
+<div class="row">
+        <div class="col-md-3 mb-4">
+          <div class="card card-body p-3">
+            <div class="card-body p-3">
+              
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Module 1</p>
+                    <h5 class="font-weight-bolder mb-0">
+                    
+                    Student Registraions
+                      
+                    </h5>
+            </div>
+          </div>
+      </div>
 
-if(!isset($_SESSION['admin_name'])){
-   header('location:login_form.php');
-}
+      <div class="col-md-4 mb-4">
+          <div class="card card-body p-3">
+            <div class="card-body p-3">
+              
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Module 2</p>
+                    <h5 class="font-weight-bolder mb-0">
+                    
+                    Result Analysis
+                      
+                    </h5>
+            </div>
+          </div>
+      </div>
 
-?>
+      <div class="col-md-4 mb-4">
+          <div class="card card-body p-3">
+            <div class="card-body p-3">
+              
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Module 3</p>
+                    <h5 class="font-weight-bolder mb-0">
+                    
+                    Certifications
+                      
+                    </h5>
+            </div>
+          </div>
+      </div>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>admin page</title>
 
-   <!-- custom css file link  -->
-   <link rel="stylesheet" href="css/style.css">
-
-</head>
-<body>
-   
-<div class="container">
-
-   <div class="content">
-      <h3>hi, <span>admin</span></h3>
-      <h1>welcome <span><?php echo $_SESSION['admin_name'] ?></span></h1>
-      <p>this is an admin page</p>
-      <a href="login_form.php" class="btn">login</a>
-      <a href="register_form.php" class="btn">register</a>
-      <a href="logout.php" class="btn">logout</a>
-   </div>
-
-</div>
-
-</body>
-</html>
+<?php include('includes/footer.php');?>
