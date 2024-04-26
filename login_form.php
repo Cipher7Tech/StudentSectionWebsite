@@ -4,77 +4,108 @@
 
 session_start();
 
-if(isset($_POST['submit'])){
+if (isset($_POST['submit'])) {
 
-   $name = mysqli_real_escape_string($conn, $_POST['name']);
-   $email = mysqli_real_escape_string($conn, $_POST['email']);
-   $pass = md5($_POST['password']);
-   $cpass = md5($_POST['cpassword']);
-   $user_type = $_POST['user_type'];
+  $email = mysqli_real_escape_string($conn, $_POST['email']);
+  $pass = md5($_POST['password']);
+  $user_type = $_POST['user_type'];
 
-   $select = " SELECT * FROM user_form WHERE email = '$email' && password = '$pass' && user_type='$user_type'";
+  $select = " SELECT * FROM user_form WHERE email = '$email' && password = '$pass' && user_type='$user_type'";
 
-   $result = mysqli_query($conn, $select);
+  $result = mysqli_query($conn, $select);
 
-   if(mysqli_num_rows($result) > 0){
+  if (mysqli_num_rows($result) > 0) {
 
-      $row = mysqli_fetch_array($result);
+    $row = mysqli_fetch_array($result);
 
-      if($row['user_type'] == 'admin'){
+    if ($row['user_type'] == 'admin') {
 
-         $_SESSION['admin_name'] = $row['name'];
-         header('location:admin_page.php');
+      $_SESSION['admin_name'] = $row['name'];
+      header('location:admin_page.php');
 
-      }elseif($row['user_type'] == 'user'){
+    } elseif ($row['user_type'] == 'user' ) {
 
-         $_SESSION['user_name'] = $row['name'];
-         header('location:user_page.php');
+      $_SESSION['user_name'] = $row['name'];
+      header('location:homepage.php');
 
-      }
-     
-   }else{
-      $error[] = 'incorrect email or password!';
-   }
+    }
 
-};
+  } else {
+    echo($conn->error);
+    $error[] = 'incorrect email or password!';
+  }
+
+}
+;
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>login form</title>
 
-   <!-- custom css file link  -->
-   <link rel="stylesheet" href="css/style.css">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dnyanshree Login</title>
+  <link rel="stylesheet" href="css/loginpage.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 </head>
-<body>
-   
-<div class="form-container">
 
-   <form action="" method="post">
-      <h3>login now</h3>
-      <?php
-      if(isset($error)){
-         foreach($error as $error){
-            echo '<span class="error-msg">'.$error.'</span>';
-         };
-      };
-      ?>
-      <input type="email" name="email" required placeholder="enter your email">
-      <input type="password" name="password" required placeholder="enter your password">
-      <select name="user_type">
-         <option value="user">user</option>
-         <option value="admin">admin</option>
-      </select>
-      <input type="submit" name="submit" value="login now" class="form-btn">
-      <p>don't have an account? <a href="register_form.php">register now</a></p>
-   </form>
+<body style="background: url(img/diet.png) no-repeat;  background-size: cover; background-position: center;">
 
-</div>
 
+
+  <div class="wrapper">
+    <form action="" method="post">
+
+
+      <form action="" method="POST">
+        <h1>Login</h1>
+        <div class="input-box">
+          <input type="text" name="email" placeholder="Username" required>
+          <i class='bx bxs-user'></i>
+        </div>
+        <div class="input-box">
+          <input type="password" name="password" placeholder="Password" required>
+          <i class='bx bxs-lock-alt'></i>
+        </div>
+
+        <div class="input-box">
+          <select id="" name="user_type">
+            <option value="user">Select User</option>
+            <option value="user">Student</option>
+            <option value="admin">Admin</option>
+            <option value="admin">Faculty</option>
+            <option value="admin">clerk</option>
+
+          </select>
+        </div>
+
+        <div>
+          <?php
+          if (isset($error)) {
+            foreach ($error as $error) {
+              echo '<span class="error-msg">' . $error . '</span>';
+            }
+            ;
+          }
+          ;
+          ?>
+        </div>
+
+
+        <div class="remember-forgot">
+          <label><input type="checkbox">Remember me</label>
+          <a href="#">Forgot Password</a>
+        </div>
+
+        <button type="submit" name="submit" class="btn">Login</button>
+        <div class="register-link">
+          <p>Don't have an account ? <a href="register_form.php">Register</a></p>
+        </div>
+      </form>
+  </div>
 </body>
+
 </html>

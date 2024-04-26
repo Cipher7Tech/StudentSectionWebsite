@@ -1,0 +1,60 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 15px;
+    word-break: break-all;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+img {
+    max-width: 40%;
+    height: 800px;
+    padding:2%;
+    border:solid black ;
+}
+
+embed {
+    width: 40%;
+    height: 800px;
+    padding: 2%;
+    border:solid black;
+}
+
+.document-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.document-cell {
+    width: calc(33.33% - 20px);
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    .document-cell {
+        width: calc(50% - 20px);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .document-cell {
+        width: 100%;
+        margin-right: 0;
+    }
+}

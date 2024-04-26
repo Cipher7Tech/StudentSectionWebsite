@@ -1,0 +1,121 @@
+body {
+  font-family: arial;
+  transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+}
+
+.custom-uploader {
+  display: flex;
+  flex-direction: row;
+}
+
+.container {
+  padding: 40px;
+  width: 500px;
+  margin: 20px auto;
+  background-color: #d46b6b;
+}
+
+.container h2 {
+  text-align: center;
+}
+
+fieldset {
+  border: 1px solid #090909;
+  padding: 20px 10px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+.input-field {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+label {
+  margin-right: 25px;
+  margin-top: 5px;
+  width: 30%;
+  text-align: right;
+  font-weight: bold;
+}
+
+.icon {
+  background: #fcfcfa;
+  color: black;
+  min-width: 40px;
+  border: 2px solid #e2e2e2;
+  border-right: none;
+  text-align: center;
+  padding: 7px;
+}
+
+.inputs {
+  padding: 3px 10px;
+  border: 2px solid #311e1e;
+  width: 70%;
+}
+
+input [type="radio"] {
+  margin-right: 8px;
+}
+
+.textarea {
+  padding: 8px;
+  border: 2px solid #e2e2e2;
+}
+
+.textarea-icon {
+  padding-top: 14px;
+}
+
+.button {
+  text-align: center;
+}
+
+.submit {
+  color: white;
+  background: #ee9a25;
+  padding: 9px 25px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #c9c9c9;
+}
+
+.submit:hover {
+  background: #d1871e;
+}
+
+.reset {
+  color: white;
+  background: #c93232;
+  padding: 9px 25px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #c9c9c9;
+}
+
+.reset:hover {
+  background: #a32727;
+}
+
+.city {
+  margin-left: -6px;
+}
+
+.gender {
+  margin-left: -30px;
+}
+
+.courses {
+  margin-left: -26px;
+}
+
+input[type="radio"] {
+  margin-right: 10px;
+}
+
+.message {
+  margin-left: -30px;
+}

@@ -27,6 +27,7 @@ if(isset($_POST['submit'])){
          mysqli_query($conn, $insert);
          header('location:login_form.php');
       }
+      
    }
 
 };
