@@ -1,3 +1,21 @@
+<?php
+@include 'config/config.php';
+session_start();
+
+$email = $_SESSION['email'];
+$name = $_SESSION['user_name'];
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM studRegistration WHERE email = '$email'";
+$result = $conn->query($sql);
+
+$conn->close();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +40,7 @@
                     <i class="lni lni-grid-alt"></i>
                 </button>
                 <div class="sidebar-logo">
-                    <a href="#">Dashboard</a>
+                    <a href="homepage.php">Dashboard</a>
                 </div>
             </div>
             <ul class="sidebar-nav">
@@ -54,7 +72,7 @@
                     </ul>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="stud_status.php" class="sidebar-link">
                         <i class="lni lni-popup"></i>
                         <span>Notification</span>
                     </a>
@@ -67,7 +85,7 @@
                 </li>
             </ul>
             <div class="sidebar-footer">
-                <a href="#" class="sidebar-link">
+                <a href="logout.php" class="sidebar-link">
                     <i class="lni lni-exit"></i>
                     <span>Logout</span>
                 </a>
@@ -75,56 +93,68 @@
         </aside>
 
         <div>
-        <div class="main p-3">
+            <div class="main p-3">
 
-            <!-- Logo -->
-            <div class="text-center">
-                <img src="img/logo diet.png" alt="logo diet">
+                <!-- Logo -->
+                <div class="text-center">
+                    <img src="img/logo diet.png" alt="logo diet">
+                </div>
+
+
+                <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
+                <title>Frontend Mentor | Three card feature section</title>
+
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,600;1,200;1,400;1,600&display=swap"
+                    rel="stylesheet">
+
+
+
+                <!-- Homepage Cards -->
+                <div>
+
+                    <!-- Student Registration Card -->
+
+                    <?php
+                    if ($result->num_rows > 0) {
+                        // User is already registered, display error message
+                        echo '<div class="alert alert-success" role="alert">
+                You have already registered.
+            </div>';
+                    } else {
+                        // User is not registered, allow them to proceed to the registration page
+                        echo'<a href="studentRegistration.php">';
+                    }
+                    ?>
+                    
+                        <div class="row1-container">
+                            <div class="box box-down cyan">
+                                <h2>Student Registration</h2>
+                                <p> General Registration for new Admissions</p>
+                                <img src="img/Student Registration 2.png" alt="">
+                            </div>
+                    </a>
+
+                    <div class="box red">
+                        <h2>Result Analysis</h2>
+                        <p> Result Analysis of Students</p>
+                        <img src="img/Result Analysis1.png" alt="">
+                    </div>
+
+                    <div class="box box-down blue">
+                        <h2>Certification</h2>
+                        <p>Certification System For General Use</p>
+                        <img src="img/Certification 1.png" alt="">
+                    </div>
+                </div>
+
+
             </div>
-        
-            
-            <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
 
-            <title>Frontend Mentor | Three card feature section</title>
-           
-            <link
-              href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,600;1,200;1,400;1,600&display=swap"
-              rel="stylesheet">
-          
-          
-        
-            <!-- Homepage Cards -->
-            <div>
 
-                <!-- Student Registration Card -->
-            <a href="studentRegistration.php">
-                <div class="row1-container">
-                    <div class="box box-down cyan">
-                        <h2>Student Registration</h2>
-                <p> General Registration for new Admissions</p>
-                <img src="img/Student Registration 2.png" alt="">
-              </div>
-            </a>
-          
-              <div class="box red">
-                  <h2>Result Analysis</h2>
-                <p> Result Analysis of Students</p>
-                <img src="img/Result Analysis1.png" alt="">
-              </div>
-              
-              <div class="box box-down blue">
-                <h2>Certification</h2>
-                <p>Certification System For General Use</p>
-                <img src="img/Certification 1.png" alt="">
-              </div>
-            </div>
-            
-            
         </div>
-       
-            
-            </div>
-        </div>
+    </div>
     </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

@@ -3,14 +3,11 @@ session_start();
 $conn = mysqli_connect("localhost", "root", "", "user_db");
 if ($conn->connect_error) {
     echo "Connection Failed";
-} else {
-
-    echo "Connection Established";
-
 }
 $sql = "SELECT * FROM studregistration ORDER BY reg_id ASC;";
 // $sql="SELECT * FROM studregistration;";
 $result = $conn->query($sql);
+
 
 ?>
 <!DOCTYPE html>
@@ -22,20 +19,48 @@ $result = $conn->query($sql);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+        .table_section {
+            height: 650px;
+            overflow: auto;
+        }
+
         table {
             border-collapse: collapse;
-            width: 100%;
+            width: 4000px;
+            background-color: #f2f2f2;
         }
 
         th,
         td {
             border: 1px solid #ddd;
             padding: 8px;
-            text-align: left;
+            text-align: center;
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: orange;
+        }
+
+        tr:hover {
+            background-color: #e2dcd6;
+            color: black;
+        }
+
+        button {
+            outline: none;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background-color: #0298cf;
+            height: 30px;
+            color: white;
+        }
+
+        .container img {
+            width: 300px;
+            float: center;
+            margin: 20px;
+            margin-left: 40%;
         }
     </style>
 </head>
@@ -44,7 +69,7 @@ $result = $conn->query($sql);
 
     <div class="container">
         <h2>
-            <center>New Students Registered</center>
+            <img src="img/logo.png" alt="">
         </h2>
     </div>
 
@@ -54,7 +79,7 @@ $result = $conn->query($sql);
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Studen tName</th>
+                <th>Student Name</th>
                 <th>Father Name</th>
                 <th>Mother Name</th>
                 <th>Branch</th>
@@ -129,13 +154,13 @@ $result = $conn->query($sql);
 
 
                     echo "<td>" . $row["Approval"] . "</td>";
-                    
+
                     echo "<td>";
-                    
+
                     ?>
                     <form method="post">
                         <a href="checkDocuments.php?stud_id=<?php echo $row['reg_id']; ?>"><button type="button"
-                        name="changestatus">Check Documents</button></a></td>
+                                name="changestatus">Check Documents</button></a></td>
                     </form>
                     <?php
                     echo "</td>";
@@ -147,7 +172,6 @@ $result = $conn->query($sql);
             } else {
                 echo "0 results";
             }
-
 
 
             ?>

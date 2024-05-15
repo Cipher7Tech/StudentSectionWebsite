@@ -1,6 +1,9 @@
 <?php
+
 include 'indexStudReg.php';
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,12 +25,7 @@ include 'indexStudReg.php';
   <!-- Nice Select CSS -->
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" />
-  <!-- MultiLevel Form Style CSS -->
-  <link rel="stylesheet" href="css/form-style.css" />
-  <!-- Documents -->
-  <link rel="stylesheet" href="css/doc-upload.css" />
-  <!-- Student Registration Form-->
-  <link rel="stylesheet" href="css/stud-reg-page.css" />
+  
   <style>
     body {
       font-family: arial;
@@ -38,6 +36,7 @@ include 'indexStudReg.php';
     .custom-uploader {
       display: flex;
       flex-direction: row;
+      width:150%
     }
 
     .container {
@@ -56,20 +55,24 @@ include 'indexStudReg.php';
       padding: 20px 10px;
       margin-bottom: 20px;
       border-radius: 8px;
-      background-color: #dbe4f4;
+      background-color: #d5d9f2;
+      /* text-align: left; */
     }
 
     .input-field {
       display: flex;
       margin-bottom: 15px;
+      align-items: center;
+      /* margin: 5px; */
     }
 
     label {
       margin-right: 25px;
       margin-top: 5px;
       width: 30%;
-      text-align: center;
+      text-align: left;
       font-weight: bold;
+      
     }
 
     .icon {
@@ -78,14 +81,16 @@ include 'indexStudReg.php';
       min-width: 40px;
       border: 2px solid #e2e2e2;
       border-right: none;
-      text-align: center;
+      text-align: left;
       padding: 7px;
     }
 
     .inputs {
       padding: 3px 10px;
+      height: 38px;
       border: 1px solid #311e1e;
       width: 70%;
+      border-radius: 4px;
     }
 
     input [type="radio"] {
@@ -96,6 +101,7 @@ include 'indexStudReg.php';
       padding: 8px;
       border: 1px solid #111010;
       width: 70%;
+     
     
     }
 
@@ -134,25 +140,12 @@ include 'indexStudReg.php';
       background: #a32727;
     }
 
-    .city {
-      margin-left: -6px;
-    }
-
-    .gender {
-      margin-left: -30px;
-    }
-
-    .courses {
-      margin-left: -26px;
-    }
-
+    
     input[type="radio"] {
-      margin-right: 10px;
+      margin: 10px;
     }
 
-    .message {
-      margin-left: -30px;
-    }
+   
   </style>
 <style>
   /*font Variables*/
@@ -169,10 +162,11 @@ include 'indexStudReg.php';
   padding-top: 50px;
   min-height: 820px;
     height: auto;
-  max-width: 820px;
+  max-width: 1000px;
   margin: 0 auto;
-  background: #ffffff;
+  background: #d5d9f2;
   z-index: 1;
+
 }
 .multi_step_form #msform .tittle {
   text-align: center;
@@ -482,15 +476,68 @@ height:100px;
   border-color: #405867;
 }
 .multi_step_form #msform .previous_button {
-  background: transparent;
-  color: #99a2a8;
+  background: white;
+  color: #555b60;
   border-color: #99a2a8;
+  margin: 20px;
+  margin-top: 10px;
 }
 .multi_step_form #msform .previous_button:hover, .multi_step_form #msform .previous_button:focus {
   background: #405867;
   border-color: #405867;
   color: #fff;
 }
+
+/* doc upload */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align:left;
+}
+
+th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+input[type="file"] {
+  border: 1px solid #502d2d;
+  border-radius: 4px;
+  padding: 6px;
+  width: 70%;
+  box-sizing: border-box;
+  background-color: white;
+
+  
+}
+
+
+/* form submission */
+
+.confirm-container {
+  background-color: #d4edda;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 8px;
+            border-color: #5cb85c;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+        p {
+            color: #666;
+            text-align: center;
+        }
+        
 </style>
 
 </head>
@@ -500,11 +547,11 @@ height:100px;
     <article>
       <!-- Start Multiform HTML -->
       <section class="multi_step_form">
-        <form id="msform" method="post" enctype="multipart/form-data" action="indexStudReg.php">
+        <form id="msform" method="post" enctype="multipart/form-data" action="">
 
           <!-- Tittle -->
           <div class="tittle">
-            <h2>Registration Process</h2>
+            <h1>Registration Process</h1>
             <hr>
           </div>
           <!-- progressbar -->
@@ -526,7 +573,7 @@ height:100px;
             <div class="input-field">
               <label class="city"> Select Branch</label>
               <i class="text box"></i>
-              
+
               <select name="Branch" id="" class="inputs">
                 <option value="0">--Select--</option>
                 <option value="1">Civil</option>
@@ -655,12 +702,29 @@ height:100px;
               <input type="text" name="studentName" class="inputs">
             </div>
 
+            <script>
+              function validateName() {
+                var nameInput = document.getElementById("studentName").value;
+                var nameError = document.getElementById("nameError");
+
+                // Check if the name field is empty
+                if (nameInput.trim() === "") {
+                  nameError.style.display = "block"; // Show error message
+                } else {
+                  nameError.style.display = "none"; // Hide error message
+                  // If validation passes, you can proceed with other actions, e.g., form submission
+                  // For example:
+                  // document.getElementById("yourFormId").submit();
+                }
+              }
+            </script>
+
             <div class="input-field">
               <label>Father's name</label>
               <i class="text box"></i>
-              
+
               <input type="text" class="inputs" name="fatherName">
-              
+
             </div>
             <div class="input-field">
               <label>Mother's name</label>
@@ -733,10 +797,11 @@ height:100px;
               <input type="file" name="parentSign" class="inputs">
             </div>
             <hr>
-            <button type="button" class="action-button previous_button">
+            <a href="homepage.php"><button type="button" class="action-button previous_button">
               Back
             </button>
-            <button type="button" class="next action-button">Continue</button>
+            </a>
+            <button type="button" name="continue" class="next action-button">Continue</button>
           </fieldset>
           <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
           <!-- Documents upload -->
@@ -828,7 +893,8 @@ height:100px;
                     </div>
                   </td>
                 </tr>
-                <tr>
+
+                <tr id="12thMarkSheetRow">
                   <td>12th Standard/CBSE/Equivalent Exam Mark Sheet</td>
                   <td><!-- For 12th Standard/CBSE/Equivalent Exam Mark Sheet upload -->
                     <div class="custom-uploader">
@@ -836,7 +902,9 @@ height:100px;
                     </div>
                   </td>
                 </tr>
-                <tr>
+
+
+                <tr id="diplomaMarkSheetRow">
                   <td>Diploma 5th & 6th Mark Sheet</td>
                   <td><!-- For Diploma Mark Sheet 5th & 6th upload -->
                     <div class="custom-uploader">
@@ -844,6 +912,9 @@ height:100px;
                     </div>
                   </td>
                 </tr>
+
+
+
                 <tr>
                   <td>Leaving Certificate</td>
                   <td><!-- For Leaving Certificate upload -->
@@ -908,16 +979,20 @@ height:100px;
 
             </div>
             <div class="form-group fg_3">
+            <div class="confirm-container">
+        <h2>Admission Registration Confirmation</h2>
+        <p>Thank you for completing the registration process.</p>
+        <p>Please take a moment to review the details you provided before hitting the submit button.</p>
 
+    
+    </div>
             </div>
             <button type="button" class="action-button previous previous_button">
               Back
             </button>
             <a href="#" class="action-button"><button class="action-button" name="submitBtn" type="submit">
-                Finish
+                Submit
               </button></a>
-            Button trigger modal
-
 
           </fieldset>
         </form>
@@ -935,6 +1010,34 @@ height:100px;
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
   <script src="js/script.js"></script>
+  <script>
+    // JavaScript code to hide or show the table row based on radio button selection
+    window.onload = function () {
+      var diplomaRow = document.getElementById('diplomaMarkSheetRow'); // Get the table row by its ID
+      var hscRow = document.getElementById('12thMarkSheetRow'); // Get the table row by its ID
+      var radioButtons = document.getElementsByName('admitted'); // Get the radio buttons
+
+      // Function to hide or show the row based on the selected radio button
+      function updateTableRowVisibility() {
+        if (radioButtons[1].checked) { // Check if the "Diploma" radio button is selected
+          diplomaRow.style.display = ''; // Show the row (default display)
+          hscRow.style.display = 'none'; // Hide the row (default display)
+        } else {
+          diplomaRow.style.display = 'none'; // Hide the row
+          hscRow.style.display = ''; // Show the row
+        }
+      }
+
+      // Call the function initially to set the initial visibility based on the default selection
+      updateTableRowVisibility();
+
+      // Add event listener to each radio button to update the visibility when selection changes
+      for (var i = 0; i < radioButtons.length; i++) {
+        radioButtons[i].addEventListener('change', updateTableRowVisibility);
+      }
+    };
+
+  </script>
 </body>
 
 </html>
