@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2024 at 10:17 AM
+-- Generation Time: May 15, 2024 at 06:46 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -58,6 +58,7 @@ INSERT INTO `college_staff` (`id`, `name`, `email`, `phone`, `password`, `user_t
 CREATE TABLE `documents` (
   `doc_id` int(11) NOT NULL,
   `reg_id` int(255) NOT NULL,
+  `Queries` varchar(255) NOT NULL,
   `Aadhar` mediumblob DEFAULT NULL,
   `Dte` mediumblob DEFAULT NULL,
   `CetScoreCard` mediumblob DEFAULT NULL,
@@ -156,7 +157,10 @@ INSERT INTO `user_form` (`id`, `name`, `email`, `password`, `cpassword`, `user_t
 (2, 'Sahil', 'sahil@gmail.com', '25d55ad283aa400af464c76d713c07ad', '25d55ad283aa400af464c76d713c07ad', 'admin'),
 (3, 'Sahil', 'sahil@gmail.com', '25f9e794323b453885f5181f1b624d0b', '25f9e794323b453885f5181f1b624d0b', 'user'),
 (4, 'sanket', 'sanket@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '827ccb0eea8a706c4c34a16891f84e7b', 'user'),
-(5, 'ram', 'ram@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '827ccb0eea8a706c4c34a16891f84e7b', 'admin');
+(5, 'ram', 'ram@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '827ccb0eea8a706c4c34a16891f84e7b', 'admin'),
+(6, 'Kunal', 'kunal@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '827ccb0eea8a706c4c34a16891f84e7b', 'user'),
+(7, 'sneha', 'sneha@gmail.com', '25f9e794323b453885f5181f1b624d0b', '25f9e794323b453885f5181f1b624d0b', 'admin'),
+(8, 'sneha', 'sneha123@gmail.com', '25f9e794323b453885f5181f1b624d0b', '25f9e794323b453885f5181f1b624d0b', 'user');
 
 --
 -- Indexes for dumped tables
@@ -201,19 +205,19 @@ ALTER TABLE `college_staff`
 -- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
-  MODIFY `doc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `doc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `studregistration`
 --
 ALTER TABLE `studregistration`
-  MODIFY `reg_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
+  MODIFY `reg_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
 
 --
 -- AUTO_INCREMENT for table `user_form`
 --
 ALTER TABLE `user_form`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
