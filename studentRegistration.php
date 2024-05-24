@@ -1,9 +1,9 @@
 <?php
-
 include 'indexStudReg.php';
 
+$email = $_SESSION['email'];
+$name = $_SESSION['user_name'];
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +25,7 @@ include 'indexStudReg.php';
   <!-- Nice Select CSS -->
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" />
-  
+
   <style>
     body {
       font-family: arial;
@@ -36,7 +36,7 @@ include 'indexStudReg.php';
     .custom-uploader {
       display: flex;
       flex-direction: row;
-      width:150%
+      width: 150%
     }
 
     .container {
@@ -72,7 +72,7 @@ include 'indexStudReg.php';
       width: 30%;
       text-align: left;
       font-weight: bold;
-      
+
     }
 
     .icon {
@@ -101,8 +101,8 @@ include 'indexStudReg.php';
       padding: 8px;
       border: 1px solid #111010;
       width: 70%;
-     
-    
+
+
     }
 
     .textarea-icon {
@@ -140,405 +140,541 @@ include 'indexStudReg.php';
       background: #a32727;
     }
 
-    
+
     input[type="radio"] {
       margin: 10px;
     }
 
-   
+    .error-message {
+      display: none;
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+
+    }
   </style>
-<style>
-  /*font Variables*/
-/*Color Variables*/
-@import url("https://fonts.googleapis.com/css?family=Roboto:300i,400,400i,500,700,900");
-.multi_step_form {
-  background: #f6f9fb;
-  display: block;
-  overflow-x: hidden;
-}
-.multi_step_form #msform {
-  text-align: center;
-  position: relative;
-  padding-top: 50px;
-  min-height: 820px;
-    height: auto;
-  max-width: 1000px;
-  margin: 0 auto;
-  background: #d5d9f2;
-  z-index: 1;
+  <style>
+    /*font Variables*/
+    /*Color Variables*/
+    @import url("https://fonts.googleapis.com/css?family=Roboto:300i,400,400i,500,700,900");
 
-}
-.multi_step_form #msform .tittle {
-  text-align: center;
-  padding-bottom: 15px;
-}
-.tittle{
-margin-bottom:0px;
-padding-bottom:0px;
-height:100px;
-}
-.multi_step_form #msform .tittle h2 {
-  font: 500 24px/35px "Roboto", sans-serif;
-  color: #3f4553;
-  padding-bottom: 5px;
-}
-.multi_step_form #msform .tittle p {
-  font: 400 16px/28px "Roboto", sans-serif;
-  color: #5f6771;
-}
-.multi_step_form #msform fieldset {
-  border: 0;
-  padding: 20px 105px 0;
-  position: relative;
-  width: 100%;
-  left: 0;
-  right: 0;
-}
-.multi_step_form #msform fieldset:not(:first-of-type) {
-  display: none;
-}
-.multi_step_form #msform fieldset h3 {
-  font: 500 18px/35px "Roboto", sans-serif;
-  color: #3f4553;
-}
-.multi_step_form #msform fieldset h6 {
-  font: 400 15px/28px "Roboto", sans-serif;
-  color: #5f6771;
-  padding-bottom: 30px;
-}
-.multi_step_form #msform fieldset .intl-tel-input {
-  display: block;
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-  outline: none;
-}
-.multi_step_form #msform fieldset .intl-tel-input .flag-container .selected-flag {
-  padding: 0 20px;
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-  outline: none;
-  width: 65px;
-}
-.multi_step_form #msform fieldset .intl-tel-input .flag-x .selected-flag .iti-arrow {
-  border: 0;
-}
-.multi_step_form #msform fieldset .intl-tel-input .flag-container .selected-flag .iti-arrow:after {
-  content: "\f35f";
-  position: absolute;
-  top: 0;
-  right: 0;
-  font: normal normal normal 24px/7px Ionicons;
-  color: #5f6771;
-}
-.multi_step_form #msform fieldset #phone {
-  padding-left: 80px;
-}
-.multi_step_form #msform fieldset .form-group {
-  padding: 0 10px;
-}
-.multi_step_form #msform fieldset .fg_2, .multi_step_form #msform fieldset .fg_3 {
-  padding-top: 10px;
-  display: block;
-  overflow: hidden;
-}
-.multi_step_form #msform fieldset .fg_3 {
-  padding-bottom: 70px;
-}
-.multi_step_form #msform fieldset .form-control, .multi_step_form #msform fieldset .product_select {
-  border-radius: 3px;
-  border: 1px solid #d8e1e7;
-  padding: 0 20px;
-  height: auto;
-  font: 400 15px/48px "Roboto", sans-serif;
-  color: #5f6771;
-  box-shadow: none;
-  outline: none;
-  width: 100%;
-}
-.multi_step_form #msform fieldset .form-control.placeholder, .multi_step_form #msform fieldset .product_select.placeholder {
-  color: #5f6771;
-}
-.multi_step_form #msform fieldset .form-control:-moz-placeholder, .multi_step_form #msform fieldset .product_select:-moz-placeholder {
-  color: #5f6771;
-}
-.multi_step_form #msform fieldset .form-control::-moz-placeholder, .multi_step_form #msform fieldset .product_select::-moz-placeholder {
-  color: #5f6771;
-}
-.multi_step_form #msform fieldset .form-control::-webkit-input-placeholder, .multi_step_form #msform fieldset .product_select::-webkit-input-placeholder {
-  color: #5f6771;
-}
-.multi_step_form #msform fieldset .form-control:hover, .multi_step_form #msform fieldset .form-control:focus, .multi_step_form #msform fieldset .product_select:hover, .multi_step_form #msform fieldset .product_select:focus {
-  border-color: #5cb85c;
-}
-.multi_step_form #msform fieldset .form-control:focus.placeholder, .multi_step_form #msform fieldset .product_select:focus.placeholder {
-  color: transparent;
-}
-.multi_step_form #msform fieldset .form-control:focus:-moz-placeholder, .multi_step_form #msform fieldset .product_select:focus:-moz-placeholder {
-  color: transparent;
-}
-.multi_step_form #msform fieldset .form-control:focus::-moz-placeholder, .multi_step_form #msform fieldset .product_select:focus::-moz-placeholder {
-  color: transparent;
-}
-.multi_step_form #msform fieldset .form-control:focus::-webkit-input-placeholder, .multi_step_form #msform fieldset .product_select:focus::-webkit-input-placeholder {
-  color: transparent;
-}
-.multi_step_form #msform fieldset .product_select:after {
-  display: none;
-}
-.multi_step_form #msform fieldset .product_select:before {
-  content: "\f35f";
-  position: absolute;
-  top: 0;
-  right: 20px;
-  font: normal normal normal 24px/48px Ionicons;
-  color: #5f6771;
-}
-.multi_step_form #msform fieldset .product_select .list {
-  width: 100%;
-}
-.multi_step_form #msform fieldset .done_text {
-  padding-top: 40px;
-}
-.multi_step_form #msform fieldset .done_text .don_icon {
-  height: 36px;
-  width: 36px;
-  line-height: 36px;
-  font-size: 22px;
-  margin-bottom: 10px;
-  background: #5cb85c;
-  display: inline-block;
-  border-radius: 50%;
-  color: #ffffff;
-  text-align: center;
-}
-.multi_step_form #msform fieldset .done_text h6 {
-  line-height: 23px;
-}
-.multi_step_form #msform fieldset .code_group {
-  margin-bottom: 60px;
-}
-.multi_step_form #msform fieldset .code_group .form-control {
-  border: 0;
-  border-bottom: 1px solid #a1a7ac;
-  border-radius: 0;
-  display: inline-block;
-  width: 30px;
-  font-size: 30px;
-  color: #5f6771;
-  padding: 0;
-  margin-right: 7px;
-  text-align: center;
-  line-height: 1;
-}
-.multi_step_form #msform fieldset .passport {
-  margin-top: -10px;
-  padding-bottom: 30px;
-  position: relative;
-}
-.multi_step_form #msform fieldset .passport .don_icon {
-  height: 36px;
-  width: 36px;
-  line-height: 36px;
-  font-size: 22px;
-  position: absolute;
-  top: 4px;
-  right: 0;
-  background: #5cb85c;
-  display: inline-block;
-  border-radius: 50%;
-  color: #ffffff;
-  text-align: center;
-}
-.multi_step_form #msform fieldset .passport h4 {
-  font: 500 15px/23px "Roboto", sans-serif;
-  color: #5f6771;
-  padding: 0;
-}
-.multi_step_form #msform fieldset .input-group {
-  padding-bottom: 40px;
-}
-.multi_step_form #msform fieldset .input-group .custom-file {
-  width: 100%;
-  height: auto;
-}
-.multi_step_form #msform fieldset .input-group .custom-file .custom-file-label {
-  width: 168px;
-  border-radius: 5px;
-  cursor: pointer;
-  font: 700 14px/40px "Roboto", sans-serif;
-  border: 1px solid #99a2a8;
-  text-align: center;
-  transition: all 300ms linear 0s;
-  color: #5f6771;
-}
-.multi_step_form #msform fieldset .input-group .custom-file .custom-file-label i {
-  font-size: 20px;
-  padding-right: 10px;
-}
-.multi_step_form #msform fieldset .input-group .custom-file .custom-file-label:hover, .multi_step_form #msform fieldset .input-group .custom-file .custom-file-label:focus {
-  background: #5cb85c;
-  border-color: #5cb85c;
-  color: #fff;
-}
-.multi_step_form #msform fieldset .input-group .custom-file input {
-  display: none;
-}
-.multi_step_form #msform fieldset .file_added {
-  text-align: left;
-  padding-left: 190px;
-  padding-bottom: 60px;
-}
-.multi_step_form #msform fieldset .file_added li {
-  font: 400 15px/28px "Roboto", sans-serif;
-  color: #5f6771;
-}
-.multi_step_form #msform fieldset .file_added li a {
-  color: #5cb85c;
-  font-weight: 500;
-  display: inline-block;
-  position: relative;
-  padding-left: 15px;
-}
-.multi_step_form #msform fieldset .file_added li a i {
-  font-size: 22px;
-  padding-right: 8px;
-  position: absolute;
-  left: 0;
-  transform: rotate(20deg);
-}
-.multi_step_form #msform #progressbar {
-  margin-bottom: 30px;
-  overflow: hidden;
-}
-.multi_step_form #msform #progressbar li {
-  list-style-type: none;
-  color: #99a2a8;
-  font-size: 9px;
-  width: calc(100%/3);
-  float: left;
-  position: relative;
-  font: 500 13px/1 "Roboto", sans-serif;
-}
-.multi_step_form #msform #progressbar li:nth-child(2):before {
-  content: "\f12f";
-}
-.multi_step_form #msform #progressbar li:nth-child(3):before {
-  content: "\f457";
-}
-.multi_step_form #msform #progressbar li:before {
-  content: "\f1fa";
-  font: normal normal normal 30px/50px Ionicons;
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  display: block;
-  background: #eaf0f4;
-  border-radius: 50%;
-  margin: 0 auto 10px auto;
-}
-.multi_step_form #msform #progressbar li:after {
-  content: '';
-  width: 100%;
-  height: 10px;
-  background: #eaf0f4;
-  position: absolute;
-  left: -50%;
-  top: 21px;
-  z-index: -1;
-}
-.multi_step_form #msform #progressbar li:last-child:after {
-  width: 150%;
-}
-.multi_step_form #msform #progressbar li.active {
-  color: #5cb85c;
-}
-.multi_step_form #msform #progressbar li.active:before, .multi_step_form #msform #progressbar li.active:after {
-  background: #5cb85c;
-  color: white;
-}
-.multi_step_form #msform .action-button {
-  background: #5cb85c;
-  color: white;
-  border: 0 none;
-  border-radius: 5px;
-  cursor: pointer;
-  min-width: 130px;
-  font: 700 14px/40px "Roboto", sans-serif;
-  border: 1px solid #5cb85c;
-  margin: 0 5px;
-  text-transform: uppercase;
-  display: inline-block;
-}
-.multi_step_form #msform .action-button:hover, .multi_step_form #msform .action-button:focus {
-  background: #405867;
-  border-color: #405867;
-}
-.multi_step_form #msform .previous_button {
-  background: white;
-  color: #555b60;
-  border-color: #99a2a8;
-  margin: 20px;
-  margin-top: 10px;
-}
-.multi_step_form #msform .previous_button:hover, .multi_step_form #msform .previous_button:focus {
-  background: #405867;
-  border-color: #405867;
-  color: #fff;
-}
+    .multi_step_form {
+      background: #f6f9fb;
+      display: block;
+      overflow-x: hidden;
+    }
 
-/* doc upload */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: Arial, sans-serif;
-}
+    .multi_step_form #msform {
+      text-align: center;
+      position: relative;
+      padding-top: 50px;
+      min-height: 820px;
+      height: auto;
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #d5d9f2;
+      z-index: 1;
 
-th, td {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-  text-align:left;
-}
+    }
 
-th {
-  background-color: #f2f2f2;
-  color: #333;
-}
+    .multi_step_form #msform .tittle {
+      text-align: center;
+      padding-bottom: 15px;
+    }
 
-input[type="file"] {
-  border: 1px solid #502d2d;
-  border-radius: 4px;
-  padding: 6px;
-  width: 70%;
-  box-sizing: border-box;
-  background-color: white;
+    .tittle {
+      margin-bottom: 0px;
+      padding-bottom: 0px;
+      height: 100px;
+    }
 
-  
-}
+    .multi_step_form #msform .tittle h2 {
+      font: 500 24px/35px "Roboto", sans-serif;
+      color: #3f4553;
+      padding-bottom: 5px;
+    }
+
+    .multi_step_form #msform .tittle p {
+      font: 400 16px/28px "Roboto", sans-serif;
+      color: #5f6771;
+    }
+
+    .multi_step_form #msform fieldset {
+      border: 0;
+      padding: 20px 105px 0;
+      position: relative;
+      width: 100%;
+      left: 0;
+      right: 0;
+    }
+
+    .multi_step_form #msform fieldset:not(:first-of-type) {
+      display: none;
+    }
+
+    .multi_step_form #msform fieldset h3 {
+      font: 500 18px/35px "Roboto", sans-serif;
+      color: #3f4553;
+    }
+
+    .multi_step_form #msform fieldset h6 {
+      font: 400 15px/28px "Roboto", sans-serif;
+      color: #5f6771;
+      padding-bottom: 30px;
+    }
+
+    .multi_step_form #msform fieldset .intl-tel-input {
+      display: block;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      outline: none;
+    }
+
+    .multi_step_form #msform fieldset .intl-tel-input .flag-container .selected-flag {
+      padding: 0 20px;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      outline: none;
+      width: 65px;
+    }
+
+    .multi_step_form #msform fieldset .intl-tel-input .flag-x .selected-flag .iti-arrow {
+      border: 0;
+    }
+
+    .multi_step_form #msform fieldset .intl-tel-input .flag-container .selected-flag .iti-arrow:after {
+      content: "\f35f";
+      position: absolute;
+      top: 0;
+      right: 0;
+      font: normal normal normal 24px/7px Ionicons;
+      color: #5f6771;
+    }
+
+    .multi_step_form #msform fieldset #phone {
+      padding-left: 80px;
+    }
+
+    .multi_step_form #msform fieldset .form-group {
+      padding: 0 10px;
+    }
+
+    .multi_step_form #msform fieldset .fg_2,
+    .multi_step_form #msform fieldset .fg_3 {
+      padding-top: 10px;
+      display: block;
+      overflow: hidden;
+    }
+
+    .multi_step_form #msform fieldset .fg_3 {
+      padding-bottom: 70px;
+    }
+
+    .multi_step_form #msform fieldset .form-control,
+    .multi_step_form #msform fieldset .product_select {
+      border-radius: 3px;
+      border: 1px solid #d8e1e7;
+      padding: 0 20px;
+      height: auto;
+      font: 400 15px/48px "Roboto", sans-serif;
+      color: #5f6771;
+      box-shadow: none;
+      outline: none;
+      width: 100%;
+    }
+
+    .multi_step_form #msform fieldset .form-control.placeholder,
+    .multi_step_form #msform fieldset .product_select.placeholder {
+      color: #5f6771;
+    }
+
+    .multi_step_form #msform fieldset .form-control:-moz-placeholder,
+    .multi_step_form #msform fieldset .product_select:-moz-placeholder {
+      color: #5f6771;
+    }
+
+    .multi_step_form #msform fieldset .form-control::-moz-placeholder,
+    .multi_step_form #msform fieldset .product_select::-moz-placeholder {
+      color: #5f6771;
+    }
+
+    .multi_step_form #msform fieldset .form-control::-webkit-input-placeholder,
+    .multi_step_form #msform fieldset .product_select::-webkit-input-placeholder {
+      color: #5f6771;
+    }
+
+    .multi_step_form #msform fieldset .form-control:hover,
+    .multi_step_form #msform fieldset .form-control:focus,
+    .multi_step_form #msform fieldset .product_select:hover,
+    .multi_step_form #msform fieldset .product_select:focus {
+      border-color: #5cb85c;
+    }
+
+    .multi_step_form #msform fieldset .form-control:focus.placeholder,
+    .multi_step_form #msform fieldset .product_select:focus.placeholder {
+      color: transparent;
+    }
+
+    .multi_step_form #msform fieldset .form-control:focus:-moz-placeholder,
+    .multi_step_form #msform fieldset .product_select:focus:-moz-placeholder {
+      color: transparent;
+    }
+
+    .multi_step_form #msform fieldset .form-control:focus::-moz-placeholder,
+    .multi_step_form #msform fieldset .product_select:focus::-moz-placeholder {
+      color: transparent;
+    }
+
+    .multi_step_form #msform fieldset .form-control:focus::-webkit-input-placeholder,
+    .multi_step_form #msform fieldset .product_select:focus::-webkit-input-placeholder {
+      color: transparent;
+    }
+
+    .multi_step_form #msform fieldset .product_select:after {
+      display: none;
+    }
+
+    .multi_step_form #msform fieldset .product_select:before {
+      content: "\f35f";
+      position: absolute;
+      top: 0;
+      right: 20px;
+      font: normal normal normal 24px/48px Ionicons;
+      color: #5f6771;
+    }
+
+    .multi_step_form #msform fieldset .product_select .list {
+      width: 100%;
+    }
+
+    .multi_step_form #msform fieldset .done_text {
+      padding-top: 40px;
+    }
+
+    .multi_step_form #msform fieldset .done_text .don_icon {
+      height: 36px;
+      width: 36px;
+      line-height: 36px;
+      font-size: 22px;
+      margin-bottom: 10px;
+      background: #5cb85c;
+      display: inline-block;
+      border-radius: 50%;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .multi_step_form #msform fieldset .done_text h6 {
+      line-height: 23px;
+    }
+
+    .multi_step_form #msform fieldset .code_group {
+      margin-bottom: 60px;
+    }
+
+    .multi_step_form #msform fieldset .code_group .form-control {
+      border: 0;
+      border-bottom: 1px solid #a1a7ac;
+      border-radius: 0;
+      display: inline-block;
+      width: 30px;
+      font-size: 30px;
+      color: #5f6771;
+      padding: 0;
+      margin-right: 7px;
+      text-align: center;
+      line-height: 1;
+    }
+
+    .multi_step_form #msform fieldset .passport {
+      margin-top: -10px;
+      padding-bottom: 30px;
+      position: relative;
+    }
+
+    .multi_step_form #msform fieldset .passport .don_icon {
+      height: 36px;
+      width: 36px;
+      line-height: 36px;
+      font-size: 22px;
+      position: absolute;
+      top: 4px;
+      right: 0;
+      background: #5cb85c;
+      display: inline-block;
+      border-radius: 50%;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .multi_step_form #msform fieldset .passport h4 {
+      font: 500 15px/23px "Roboto", sans-serif;
+      color: #5f6771;
+      padding: 0;
+    }
+
+    .multi_step_form #msform fieldset .input-group {
+      padding-bottom: 40px;
+    }
+
+    .multi_step_form #msform fieldset .input-group .custom-file {
+      width: 100%;
+      height: auto;
+    }
+
+    .multi_step_form #msform fieldset .input-group .custom-file .custom-file-label {
+      width: 168px;
+      border-radius: 5px;
+      cursor: pointer;
+      font: 700 14px/40px "Roboto", sans-serif;
+      border: 1px solid #99a2a8;
+      text-align: center;
+      transition: all 300ms linear 0s;
+      color: #5f6771;
+    }
+
+    .multi_step_form #msform fieldset .input-group .custom-file .custom-file-label i {
+      font-size: 20px;
+      padding-right: 10px;
+    }
+
+    .multi_step_form #msform fieldset .input-group .custom-file .custom-file-label:hover,
+    .multi_step_form #msform fieldset .input-group .custom-file .custom-file-label:focus {
+      background: #5cb85c;
+      border-color: #5cb85c;
+      color: #fff;
+    }
+
+    .multi_step_form #msform fieldset .input-group .custom-file input {
+      display: none;
+    }
+
+    .multi_step_form #msform fieldset .file_added {
+      text-align: left;
+      padding-left: 190px;
+      padding-bottom: 60px;
+    }
+
+    .multi_step_form #msform fieldset .file_added li {
+      font: 400 15px/28px "Roboto", sans-serif;
+      color: #5f6771;
+    }
+
+    .multi_step_form #msform fieldset .file_added li a {
+      color: #5cb85c;
+      font-weight: 500;
+      display: inline-block;
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .multi_step_form #msform fieldset .file_added li a i {
+      font-size: 22px;
+      padding-right: 8px;
+      position: absolute;
+      left: 0;
+      transform: rotate(20deg);
+    }
+
+    .multi_step_form #msform #progressbar {
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+
+    .multi_step_form #msform #progressbar li {
+      list-style-type: none;
+      color: #99a2a8;
+      font-size: 9px;
+      width: calc(100%/3);
+      float: left;
+      position: relative;
+      font: 500 13px/1 "Roboto", sans-serif;
+    }
+
+    .multi_step_form #msform #progressbar li:nth-child(2):before {
+      content: "\f12f";
+    }
+
+    .multi_step_form #msform #progressbar li:nth-child(3):before {
+      content: "\f457";
+    }
+
+    .multi_step_form #msform #progressbar li:before {
+      content: "\f1fa";
+      font: normal normal normal 30px/50px Ionicons;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      display: block;
+      background: #eaf0f4;
+      border-radius: 50%;
+      margin: 0 auto 10px auto;
+    }
+
+    .multi_step_form #msform #progressbar li:after {
+      content: '';
+      width: 100%;
+      height: 10px;
+      background: #eaf0f4;
+      position: absolute;
+      left: -50%;
+      top: 21px;
+      z-index: -1;
+    }
+
+    .multi_step_form #msform #progressbar li:last-child:after {
+      width: 150%;
+    }
+
+    .multi_step_form #msform #progressbar li.active {
+      color: #5cb85c;
+    }
+
+    .multi_step_form #msform #progressbar li.active:before,
+    .multi_step_form #msform #progressbar li.active:after {
+      background: #5cb85c;
+      color: white;
+    }
+
+    .multi_step_form #msform .action-button {
+      background: #5cb85c;
+      color: white;
+      border: 0 none;
+      border-radius: 5px;
+      cursor: pointer;
+      min-width: 130px;
+      font: 700 14px/40px "Roboto", sans-serif;
+      border: 1px solid #5cb85c;
+      margin: 0 5px;
+      text-transform: uppercase;
+      display: inline-block;
+    }
+
+    .multi_step_form #msform .action-button:hover,
+    .multi_step_form #msform .action-button:focus {
+      background: #405867;
+      border-color: #405867;
+    }
+
+    .multi_step_form #msform .previous_button {
+      background: white;
+      color: #555b60;
+      border-color: #99a2a8;
+      margin: 20px;
+      margin-top: 10px;
+    }
+
+    .multi_step_form #msform .previous_button:hover,
+    .multi_step_form #msform .previous_button:focus {
+      background: #405867;
+      border-color: #405867;
+      color: #fff;
+    }
+
+    /* doc upload */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: Arial, sans-serif;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      color: #333;
+    }
+
+    input[type="file"] {
+      border: 1px solid #502d2d;
+      border-radius: 4px;
+      padding: 6px;
+      width: 70%;
+      box-sizing: border-box;
+      background-color: white;
 
 
-/* form submission */
+    }
 
-.confirm-container {
-  background-color: #d4edda;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            border-radius: 8px;
-            border-color: #5cb85c;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            color: #333;
-            text-align: center;
-        }
-        p {
-            color: #666;
-            text-align: center;
-        }
-        
-</style>
+
+    /* form submission */
+
+    .confirm-container {
+      background-color: #d4edda;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      border-radius: 8px;
+      border-color: #5cb85c;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #333;
+      text-align: center;
+    }
+
+    p {
+      color: #666;
+      text-align: center;
+    }
+
+
+    /* error message handling */
+    .error-message {
+      display: none;
+      color: red;
+      font-size: 12px;
+    }
+
+    .error {
+      border: 2px solid red;
+
+    }
+
+    .input-field input[type="radio"].error {
+      outline: 2px solid red;
+    }
+
+    .input-field select.error {
+      border: 2px solid red;
+    }
+
+    .custom-uploader input[type="file"].error {
+      border: 2px solid red;
+    }
+
+
+    /* form submission */
+
+    .confirm-container {
+      background-color: #d4edda;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      border-radius: 8px;
+      border-color: #5cb85c;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #333;
+      text-align: center;
+    }
+
+    p {
+      color: #666;
+      text-align: center;
+    }
+  </style>
+  </style>
 
 </head>
 
@@ -547,13 +683,14 @@ input[type="file"] {
     <article>
       <!-- Start Multiform HTML -->
       <section class="multi_step_form">
-        <form id="msform" method="post" enctype="multipart/form-data" action="">
+        <form id="msform" method="post" enctype="multipart/form-data" action="indexStudReg.php">
 
           <!-- Tittle -->
           <div class="tittle">
-            <h1>Registration Process</h1>
+            <h2>Registration Process</h2>
             <hr>
           </div>
+
           <!-- progressbar -->
           <ul id="progressbar">
             <li class="active">Student Details</li>
@@ -566,45 +703,38 @@ input[type="file"] {
           <fieldset>
 
             <div class="input-field">
-              <label class="city">Registration Id</label>
-              <input type="text" name="regId" class="inputs">
-            </div>
-
-            <div class="input-field">
-              <label class="city"> Select Branch</label>
-              <i class="text box"></i>
-
-              <select name="Branch" id="" class="inputs">
-                <option value="0">--Select--</option>
-                <option value="1">Civil</option>
-                <option value="2">Mechanical</option>
-                <option value="3">Electrical</option>
-                <option value="4">Computer Science</option>
-                <option value="5">Electronics & Telecommunication</option>
+              <label class="city">Select Branch<span style="color:red"> * </span> </label>
+              <select name="branch" class="inputs" required>
+                <option value="">--Select--</option>
+                <option value="Civil">Civil</option>
+                <option value="Mechanical">Mechanical</option>
+                <option value="Electrical">Electrical</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Electronics & Telecommunication">Electronics & Telecommunication</option>
               </select>
             </div>
 
             </div>
 
             <div class="input-field">
-              <label class="gender">Admitted For</label>
-              <input type="radio" name="admitted" value="Degree">Degree
-              <input type="radio" name="admitted" value="Diploma"> Diploma
+              <label class="gender">Admitted For<span style="color:red"> * </span> </label>
+              <input type="radio" name="admitted" value="Degree" required> Degree
+              <input type="radio" name="admitted" value="Diploma" required> Diploma
             </div>
 
             <div class="input-field">
-              <label class="city">Class</label>
+              <label class="city">Class<span style="color:red"> * </span> </label>
               <i class="text box"></i>
-              <input type="text" name="class" class="inputs">
+              <input type="text" name="class" class="inputs" required>
             </div>
 
 
             <!-- Category -->
 
+
             <div class="input-field">
-              <label class="city">Category</label>
-              <i class="text box"></i>
-              <select name="Category" id="" class="inputs">
+              <label class="city">Category<span style="color:red"> * </span> </label>
+              <select name="category" class="inputs" required>
                 <option value="0">--Select--</option>
                 <option value="1">OPEN</option>
                 <option value="2">OBC</option>
@@ -614,39 +744,38 @@ input[type="file"] {
               </select>
             </div>
 
-
             <!-- Photo -->
             <div class="input-field">
-              <label>Upload Photo</label>
+              <label>Upload Photo<span style="color:red"> * </span> </label>
               <i class="text box"></i>
-              <input type="file" name="studentPhoto" class="inputs">
+              <input type="file" name="studentPhoto" class="inputs" required>
             </div>
 
             <!-- Signature -->
             <div class="input-field">
-              <label>Upload Student Signature</label>
+              <label>Upload Student Signature <span style="color:red"> * </span> </label>
               <i class="text box"></i>
-              <input type="file" name="studentSign" class="inputs">
+              <input type="file" name="studentSign" class="inputs" required>
             </div>
 
             <!-- Last Exam Attended -->
             <div class="input-field">
-              <label class="city">Last Exam Attended</label>
+              <label class="city">Last Exam Attended<span style="color:red"> * </span> </label>
               <i class="text box"></i>
-              <input type="text" name="lastExamAttended" class="inputs">
+              <input type="text" name="lastExamAttended" class="inputs" required>
             </div>
 
             <!-- Last Exam Date -->
             <div class="input-field">
-              <label class="courses">Last Exam Date</label>
-              <input type="date" name="lastExamDate" class="inputs">
+              <label class="courses">Last Exam Date<span style="color:red"> * </span> </label>
+              <input type="date" name="lastExamDate" class="inputs" required>
             </div>
 
             <!-- Admission Year -->
             <div class="input-field">
-              <label class="city">Admission Year</label>
+              <label class="city">Admission Year<span style="color:red"> * </span> </label>
               <i class="text box"></i>
-              <select name="admissionyear" id="" class="inputs">
+              <select name="admissionyear" id="" class="inputs" required>
                 <option value="0">--Select--</option>
                 <option value="1">2021-22</option>
                 <option value="2">2022-23</option>
@@ -658,35 +787,35 @@ input[type="file"] {
 
             <!-- Aadhar Card No -->
             <div class="input-field">
-              <label class="city">Aadhar Card No</label>
+              <label class="city">Aadhar Card No<span style="color:red"> * </span> </label>
               <i class="text box"></i>
-              <input type="number" name="aadharNo" class="inputs">
+              <input type="number" name="aadharNo" class="inputs" required>
             </div>
 
             <!-- Religion -->
             <div class="input-field">
-              <label class="city">Religion</label>
+              <label class="city">Religion<span style="color:red"> * </span> </label>
               <i class="text box"></i>
-              <input type="text" name="religion" class="inputs">
+              <input type="text" name="religion" class="inputs" required>
             </div>
 
             <!-- Caste -->
             <div class="input-field">
-              <label class="city">Caste</label>
+              <label class="city">Caste<span style="color:red"> * </span> </label>
               <i class="text box"></i>
-              <input type="text" name="caste" class="inputs">
+              <input type="text" name="caste" class="inputs" required>
             </div>
 
             <div class="input-field">
-              <label class="city">Guardian Name</label>
+              <label class="city">Guardian Name<span style="color:red"> * </span> </label>
               <i class="text box"></i>
-              <input type="text" name="guardianName" class="inputs">
+              <input type="text" name="guardianName" class="inputs" required>
             </div>
 
             <div class="input-field">
-              <label class="city">Guardian Occupation</label>
+              <label class="city">Guardian Occupation<span style="color:red"> * </span> </label>
               <i class="text box"></i>
-              <input type="text" name="guardianOccupation" class="inputs">
+              <input type="text" name="guardianOccupation" class="inputs" required>
             </div>
 
 
@@ -697,49 +826,39 @@ input[type="file"] {
             </div>
 
             <div class="input-field">
-              <label>Name</label>
+              <label>Name<span style="color:red"> * </span> </label>
               <i class="text box"></i>
-              <input type="text" name="studentName" class="inputs">
+              <input type="text" name="studentName" class="inputs" required value="<?php echo htmlspecialchars($name); ?>">
             </div>
 
-            <script>
-              function validateName() {
-                var nameInput = document.getElementById("studentName").value;
-                var nameError = document.getElementById("nameError");
-
-                // Check if the name field is empty
-                if (nameInput.trim() === "") {
-                  nameError.style.display = "block"; // Show error message
-                } else {
-                  nameError.style.display = "none"; // Hide error message
-                  // If validation passes, you can proceed with other actions, e.g., form submission
-                  // For example:
-                  // document.getElementById("yourFormId").submit();
-                }
-              }
-            </script>
-
             <div class="input-field">
-              <label>Father's name</label>
+              <label>Father's name<span style="color:red"> * </span> </label>
               <i class="text box"></i>
 
-              <input type="text" class="inputs" name="fatherName">
+              <input type="text" class="inputs" name="fatherName" required>
 
             </div>
+
             <div class="input-field">
-              <label>Mother's name</label>
+              <label>Surname<span style="color:red"> * </span> </label>
               <i class="text box"></i>
-              <input type="text" class="inputs" name="motherName">
+              <input type="text" name="surname" class="inputs" required value="<?php echo htmlspecialchars($name); ?>">
+            </div>
+
+            <div class="input-field">
+              <label>Mother's name<span style="color:red"> * </span> </label>
+              <i class="text box"></i>
+              <input type="text" class="inputs" required name="motherName">
             </div>
             <div class="input-field">
-              <label>Email</label>
+              <label>Email<span style="color:red"> * </span> </label>
               <i class="text box"></i>
-              <input type="email" name="email" class="inputs">
+              <input type="email" name="email" class="inputs" required value="<?php echo htmlspecialchars($email); ?>">
             </div>
             <div class="input-field">
-              <label class="gender">Gender</label>
-              <input type="radio" name="gender" value="Male">Male
-              <input type="radio" name="gender" value="Female"> Female
+              <label class="gender">Gender<span style="color:red"> * </span> </label>
+              <input type="radio" name="gender" value="Male" required>Male
+              <input type="radio" name="gender" value="Female" required> Female
             </div>
 
             <!-- <div class="input-field">
@@ -752,14 +871,14 @@ input[type="file"] {
 
       <fieldset> -->
             <div class="input-field">
-              <label class="message">Address</label>
+              <label class="message">Address<span style="color:red"> * </span> </label>
               <i class="text box"></i>
               <textarea class="textarea" name="address"></textarea>
             </div>
             <div class="input-field">
-              <label class="city">City</label>
+              <label class="city">City<span style="color:red"> * </span> </label>
               <i class="text box"></i>
-              <input type="text" name="city" class="inputs">
+              <input type="text" name="city" class="inputs" required>
               <!-- <select name="city" id="" class="inputs">
             <option value="0">Select City</option>
             <option value="1">City 1</option>
@@ -770,78 +889,79 @@ input[type="file"] {
           </select> -->
             </div>
             <div class="input-field">
-              <label>Pin code</label>
+              <label>Pin code<span style="color:red"> * </span> </label>
               <i class="text box"></i>
-              <input type="number" name="pinCode" class="inputs">
+              <input type="number" name="pinCode" class="inputs" required>
             </div>
             <div class="input-field">
-              <label>Phone No</label>
+              <label>Phone No<span style="color:red"> * </span> </label>
               <i class="text box"></i>
-              <input type="number" name="phoneNo" class="inputs">
-            </div>
-
-            <div class="input-field">
-              <label>WhatsApp No</label>
-              <i class="text box"></i>
-              <input type="number" name="whatsAppNo" class="inputs">
+              <input type="number" name="phoneNo" class="inputs" required>
             </div>
 
             <div class="input-field">
-              <label class="courses">Date of birth</label>
-              <input type="date" name="dateOfBirth" class="inputs">
+              <label>WhatsApp No<span style="color:red"> * </span> </label>
+              <i class="text box"></i>
+              <input type="number" name="whatsAppNo" class="inputs" required>
             </div>
 
             <div class="input-field">
-              <label>Upload Parent/Guardian Signature</label>
+              <label class="courses">Date of birth<span style="color:red"> * </span> </label>
+              <input type="date" name="dateOfBirth" class="inputs" required>
+            </div>
+
+            <div class="input-field">
+              <label>Upload Parent/Guardian Signature<span style="color:red"> * </span> </label>
               <i class="text box"></i>
-              <input type="file" name="parentSign" class="inputs">
+              <input type="file" name="parentSign" id="file" class="inputs" required>
             </div>
             <hr>
             <a href="homepage.php"><button type="button" class="action-button previous_button">
               Back
-            </button>
-            </a>
-            <button type="button" name="continue" class="next action-button">Continue</button>
+            </button></a>
+            <button type="button" class="next action-button">Continue</button>
           </fieldset>
           <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
           <!-- Documents upload -->
           <fieldset>
-            <label for="file"> Upload Files </label>
+            <label for="file" style="margin-left:10%;">
+              <h4>Upload Files</h4>
+            </label>
             <hr>
 
             <table>
               <tbody>
                 <tr>
-                  <td>Aadhar Card</td>
+                  <td>Aadhar Card<span style="color:red"> * </span> </td>
                   <td><!-- For Aadhar upload -->
                     <div class="custom-uploader">
-                      <input type="file" name="aadhar" id="file" />
+                      <input type="file" name="aadhar" id="file" required />
                     </div>
                   </td>
                 </tr>
 
                 <tr>
-                  <td>DTE Confirmation</td>
+                  <td>DTE Confirmation<span style="color:red"> * </span> </td>
                   <td><!-- For DTE upload -->
                     <div class="custom-uploader">
-                      <input type="file" name="dte" id="file" />
+                      <input type="file" name="dte" id="file" required />
                     </div>
                   </td>
                 </tr>
 
                 <tr>
-                  <td>JEE/CET Score Card</td>
+                  <td>JEE/CET Score Card<span style="color:red"> * </span> </td>
                   <td><!-- For JEE/CET Score Card upload -->
                     <div class="custom-uploader">
-                      <input type="file" name="cet-score-card" id="file" />
+                      <input type="file" name="cet-score-card" id="file" required />
                     </div>
                   </td>
                 </tr>
                 <tr>
-                  <td>Income Certificate</td>
+                  <td>Income Certificate<span style="color:red"> * </span> </td>
                   <td><!-- For Income Certificate upload -->
                     <div class="custom-uploader">
-                      <input type="file" name="income-cert" id="file" />
+                      <input type="file" name="income-cert" id="file" required />
                     </div>
                   </td>
                 </tr>
@@ -862,10 +982,10 @@ input[type="file"] {
                   </td>
                 </tr>
                 <tr>
-                  <td>Caste Certificate</td>
+                  <td>Caste Certificate<span style="color:red"> * </span> </td>
                   <td><!-- For Caste Certificate upload -->
                     <div class="custom-uploader">
-                      <input type="file" name="caste-cert" id="file" />
+                      <input type="file" name="caste-cert" id="file" required />
                     </div>
                   </td>
                 </tr>
@@ -893,8 +1013,7 @@ input[type="file"] {
                     </div>
                   </td>
                 </tr>
-
-                <tr id="12thMarkSheetRow">
+                <tr>
                   <td>12th Standard/CBSE/Equivalent Exam Mark Sheet</td>
                   <td><!-- For 12th Standard/CBSE/Equivalent Exam Mark Sheet upload -->
                     <div class="custom-uploader">
@@ -902,9 +1021,7 @@ input[type="file"] {
                     </div>
                   </td>
                 </tr>
-
-
-                <tr id="diplomaMarkSheetRow">
+                <tr>
                   <td>Diploma 5th & 6th Mark Sheet</td>
                   <td><!-- For Diploma Mark Sheet 5th & 6th upload -->
                     <div class="custom-uploader">
@@ -912,14 +1029,11 @@ input[type="file"] {
                     </div>
                   </td>
                 </tr>
-
-
-
                 <tr>
-                  <td>Leaving Certificate</td>
+                  <td>Leaving Certificate<span style="color:red"> * </span> </td>
                   <td><!-- For Leaving Certificate upload -->
                     <div class="custom-uploader">
-                      <input type="file" name="lc" id="file" />
+                      <input type="file" name="lc" id="file" required />
                     </div>
                   </td>
                 </tr>
@@ -940,10 +1054,10 @@ input[type="file"] {
                   </td>
                 </tr>
                 <tr>
-                  <td>Proof of Indian Nationality/Domicile</td>
+                  <td>Proof of Indian Nationality/Domicile<span style="color:red"> * </span> </td>
                   <td><!-- For Proof of Indian Nationality/Domicile upload -->
                     <div class="custom-uploader">
-                      <input type="file" name="domicile" id="file" />
+                      <input type="file" name="domicile" id="file" required />
                     </div>
                   </td>
                 </tr>
@@ -979,20 +1093,21 @@ input[type="file"] {
 
             </div>
             <div class="form-group fg_3">
-            <div class="confirm-container">
-        <h2>Admission Registration Confirmation</h2>
-        <p>Thank you for completing the registration process.</p>
-        <p>Please take a moment to review the details you provided before hitting the submit button.</p>
+              <div class="confirm-container">
+                <h2>Admission Registration Confirmation</h2>
+                <p>Thank you for completing the registration process.</p>
+                <p>Please take a moment to review the details you provided before hitting the submit button.</p>
 
-    
-    </div>
+
+              </div>
             </div>
             <button type="button" class="action-button previous previous_button">
               Back
             </button>
-            <a href="#" class="action-button"><button class="action-button" name="submitBtn" type="submit">
-                Submit
-              </button></a>
+
+
+            <input type="submit" class="action-button" name="submitBtn" value="Submit">
+
 
           </fieldset>
         </form>
@@ -1002,7 +1117,7 @@ input[type="file"] {
   </main>
 
 
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
@@ -1010,34 +1125,6 @@ input[type="file"] {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
   <script src="js/script.js"></script>
-  <script>
-    // JavaScript code to hide or show the table row based on radio button selection
-    window.onload = function () {
-      var diplomaRow = document.getElementById('diplomaMarkSheetRow'); // Get the table row by its ID
-      var hscRow = document.getElementById('12thMarkSheetRow'); // Get the table row by its ID
-      var radioButtons = document.getElementsByName('admitted'); // Get the radio buttons
-
-      // Function to hide or show the row based on the selected radio button
-      function updateTableRowVisibility() {
-        if (radioButtons[1].checked) { // Check if the "Diploma" radio button is selected
-          diplomaRow.style.display = ''; // Show the row (default display)
-          hscRow.style.display = 'none'; // Hide the row (default display)
-        } else {
-          diplomaRow.style.display = 'none'; // Hide the row
-          hscRow.style.display = ''; // Show the row
-        }
-      }
-
-      // Call the function initially to set the initial visibility based on the default selection
-      updateTableRowVisibility();
-
-      // Add event listener to each radio button to update the visibility when selection changes
-      for (var i = 0; i < radioButtons.length; i++) {
-        radioButtons[i].addEventListener('change', updateTableRowVisibility);
-      }
-    };
-
-  </script>
 </body>
 
 </html>

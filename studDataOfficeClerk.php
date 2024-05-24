@@ -65,6 +65,7 @@ $result = $conn->query($sql);
     </style>
 </head>
 
+
 <body>
 
     <div class="container">
@@ -72,10 +73,15 @@ $result = $conn->query($sql);
             <img src="img/logo.png" alt="">
         </h2>
     </div>
+    <div class="searchBar">
+        <form action="" method="post">
+            Search Record using Student Email : <input type="text" name="searchRecord" id="">
+            <input type="submit" name="searchBtn" value="Search">
+        </form>
+    </div>
 
-
-
-    <table>
+    <br>
+    <table id="mainTable">
         <thead>
             <tr>
                 <th>ID</th>
@@ -181,5 +187,131 @@ $result = $conn->query($sql);
 
 
 </body>
+<?php
+if (!empty($_POST['searchBtn'])) {
+    $getEmail = $_POST['searchRecord'];
+
+    $searchQuery = "select * from studregistration where Email='$getEmail';";
+
+    $searchResult = $conn->query($searchQuery);
+
+    if ($searchResult->num_rows > 0) {
+        while ($rowSearch = $searchResult->fetch_assoc()) {
+
+
+            ?>
+            <script>
+                var maintable = document.getElementById('mainTable');
+                maintable.style.display = 'none';
+            </script>
+            <br>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Student Name</th>
+                        <th>Father Name</th>
+                        <th>Mother Name</th>
+                        <th>Branch</th>
+                        <th>Admitted For</th>
+                        <th>Class</th>
+                        <th>Student Photo</th>
+                        <th>Student Signature</th>
+                        <th>Last Exam Attended</th>
+                        <th>Last Exam Date</th>
+                        <th>Admission Year</th>
+                        <th>AadharNo</th>
+                        <th>Religion</th>
+                        <th>Caste</th>
+                        <th>Guardian Name</th>
+                        <th>Guardian Occupation</th>
+                        <th>Service Details</th>
+                        <th>Email</th>
+                        <th>Gender</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th>Pin Code</th>
+                        <th>Phone No</th>
+                        <th>WhatsApp No</th>
+                        <th>Date Of Birth</th>
+                        <th>Parent Signature</th>
+                        <th>Approval</th>
+                        <th>Documents</th>
+
+
+                    </tr>
+                </thead>
+
+
+                <tbody>
+
+                    <?php
+                    echo "<tr>";
+                    echo "<td>" . $rowSearch["reg_id"] . "</td>";
+                    echo "<td>" . $rowSearch["StudentName"] . "</td>";
+                    echo "<td>" . $rowSearch["FatherName"] . "</td>";
+                    echo "<td>" . $rowSearch["MotherName"] . "</td>";
+                    echo "<td>" . $rowSearch["Branch"] . "</td>";
+                    echo "<td>" . $rowSearch["AdmittedFor"] . "</td>";
+                    echo "<td>" . $rowSearch["Class"] . "</td>";
+
+                    echo "<td><img height='96px' width='79px' src='data:image/jpg;charset=utf8;base64," . base64_encode($rowSearch['StudentPhoto']) . "'></td>";
+                    echo "<td><img height='96px' width='79px' src='data:image/jpg;charset=utf8;base64," . base64_encode($rowSearch['StudentSignature']) . "'></td>";
+
+                    echo "<td>" . $rowSearch["LastExamAttended"] . "</td>";
+                    echo "<td>" . $rowSearch["LastExamDate"] . "</td>";
+                    echo "<td>" . $rowSearch["AdmissionYear"] . "</td>";
+                    echo "<td>" . $rowSearch["AadharNo"] . "</td>";
+                    echo "<td>" . $rowSearch["Religion"] . "</td>";
+                    echo "<td>" . $rowSearch["Caste"] . "</td>";
+                    echo "<td>" . $rowSearch["GuardianName"] . "</td>";
+                    echo "<td>" . $rowSearch["GuardianOccupation"] . "</td>";
+                    echo "<td>" . $rowSearch["ServiceDetails"] . "</td>";
+                    echo "<td>" . $rowSearch["Email"] . "</td>";
+                    echo "<td>" . $rowSearch["Gender"] . "</td>";
+                    echo "<td>" . $rowSearch["Address"] . "</td>";
+                    echo "<td>" . $rowSearch["City"] . "</td>";
+                    echo "<td>" . $rowSearch["PinCode"] . "</td>";
+                    echo "<td>" . $rowSearch["PhoneNo"] . "</td>";
+                    echo "<td>" . $rowSearch["WhatsAppNo"] . "</td>";
+
+                    echo "<td>" . $rowSearch["DateOfBirth"] . "</td>";
+                    echo "<td><img height='96px' width='79px' src='data:image/jpg;charset=utf8;base64," . base64_encode($rowSearch['ParentSignature']) . "'></td>";
+
+
+
+
+                    echo "<td>" . $rowSearch["Approval"] . "</td>";
+
+                    echo "<td>";
+
+                    ?>
+                    <form method="post">
+                        <a href="checkDocuments.php?stud_id=<?php echo $rowSearch['reg_id']; ?>"><button type="button"
+                                name="changestatus">Check Documents</button></a></td>
+                    </form>
+                    <?php
+                    echo "</td>";
+
+                    echo "</tr>";
+
+                    ?>
+
+
+                </tbody>
+            </table>
+
+
+            <?php
+
+        }
+
+    } else {
+        echo "0 results";
+    }
+
+
+}
+?>
 
 </html>

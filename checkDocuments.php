@@ -173,6 +173,7 @@ if (isset($_POST['updateBtn'])) {
             border-radius:5px;
             border: #1C77FF; 
             cursor:pointer;
+            margin:10px;
 
         }
 
@@ -239,6 +240,28 @@ if (isset($_POST['updateBtn'])) {
             }
         }
 
+
+        .approval-options {
+        text-align: center;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center; /* Adjust alignment */
+    }
+
+    .approval-options label {
+        margin-right: 20px; /* Add some spacing between radio buttons */
+        font-size: 16px;
+    }
+
+    .approval-options input[type="radio"] {
+        width: 14px;
+        height:14px;
+        margin-right: 10px;
+    
+        /* margin-right: 10px; */ /* Remove this line */
+        /* size: 10px; */ /* Remove this line */
+    }
 
         /* Checkboxes */
 
@@ -345,6 +368,8 @@ if (isset($_POST['updateBtn'])) {
             window.history.replaceState(null, null, window.location.href);
         }
     </script>
+            <hr style="border: 1px solid black;"> <!-- Add a horizontal line with 1.5px solid black border -->
+
 
     <h2>Document Verification</h2>
 
@@ -419,11 +444,17 @@ if (isset($_POST['updateBtn'])) {
             <input type="checkbox" id="admissionFeeReceipt" name="admissionFeeReceipt">
             <label for="admissionFeeReceipt">Admission Fee Receipt</label>
         </div>  
-        <hr>
-        <input type="radio" name="approval" value="Approved">Approved
-        <input type="radio" name="approval" value="Not Approved">Not Approved
-        <input type="submit" name="updateBtn" value="Update Approval">
-    </form>
+        <hr style="border: 1px solid black;"> <!-- Add a horizontal line with 1.5px solid black border -->
+
+<div class="approval-options">
+    <input type="radio" name="approval" value="Approved">Approved
+    <input type="radio" name="approval" value="Not Approved">Not Approved
+</div>
+
+<div class="update-approval-btn">
+    <input type="submit" name="updateBtn" value="Update Approval">
+</div>    
+</form>
 
 
 

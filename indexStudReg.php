@@ -33,24 +33,9 @@
   ?>
 
   <?php
-  if (isset($_POST["continue"])) {
-    // Check if Branch is selected
-    if ($_POST['Branch'] == '0') {
-      $error = "Please select a branch!";
-      // You can handle this error message accordingly, such as displaying it to the user.
-    } else {
-      // Branch is selected, proceed with other form processing.
-      $selectedBranch = $_POST['Branch'];
-      // Continue processing the form data.
-    }
-
-
-    
-  }
-  ?>
-
-  <?php
-  if (isset($_POST["submitBtn"])) {
+  // if (isset($_POST["submitBtn"])) {
+  
+  if (!empty($_POST["submitBtn"])) {
 
     $branch = $_POST['branch'];
     $admitted = $_POST['admitted'];
@@ -458,7 +443,6 @@
     if (empty($errors)) {
 
 
-
       $lastInsertId = 0;
       $insert = "INSERT INTO studregistration(StudentName,FatherName,MotherName,Branch,AdmittedFor,Class,StudentPhoto,StudentSignature,LastExamAttended,LastExamDate,AdmissionYear,AadharNo,Religion,Caste,GuardianName,GuardianOccupation,ServiceDetails,Email,Gender,Address,City,PinCode,PhoneNo,WhatsAppNo,DateOfBirth,ParentSignature) VALUES ('$studentName','$fatherName','$motherName','$branch','$admitted','$class','$studentPhoto','$studentSign','$lastExamAttended','$lastExamDate','$admissionYear','$aadharNo','$religion','$caste','$guardianName','$guardianOccupation','$guardianServiceDetails','$email','$gender','$address','$city','$pinCode','$phoneNo','$whatsAppNo','$dateOfBirth','$parentSign')";
 
@@ -478,17 +462,12 @@
         echo "Error: " . $conn->error;
       }
 
-
     }
+
 
 
     mysqli_close($conn);
   }
-
-
-
-
-
   ?>
 </body>
 

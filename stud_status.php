@@ -32,39 +32,15 @@
                         <span>Profile</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
-                        <span>Task</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
-                        <i class="lni lni-protection"></i>
-                        <span>Auth</span>
-                    </a>
-                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Login</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Register</a>
-                        </li>
-                    </ul>
-                </li>
+
+
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link">
                         <i class="lni lni-popup"></i>
                         <span>Notification</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-cog"></i>
-                        <span>Setting</span>
-                    </a>
-                </li>
+
             </ul>
             <div class="sidebar-footer">
                 <a href="logout.php" class="sidebar-link">
@@ -100,8 +76,14 @@
                     @include 'config/config.php';
 
                     session_start();
-                    $email = $_SESSION['email']; // Assuming email is stored in session
-                    $sql = "SELECT reg_id FROM studRegistration WHERE email = '$email'";
+                    $email = $_SESSION['email'];
+                    $name = $_SESSION['user_name'];
+
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+
+                    $sql = "SELECT reg_id FROM studregistration WHERE email = '$email'";
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
@@ -111,7 +93,6 @@
                         // Use the retrieved reg_id to fetch Queries from the documents table
                         $sql = "SELECT Queries FROM documents WHERE reg_id = '$reg_id'";
                         $result = $conn->query($sql);
-
 
                         // Check if any documents were fetched
                         if ($result->num_rows > 0) {
@@ -135,13 +116,6 @@
                         }
                     }
 
-                    // foreach ($documentListArray as $document) {
-                    //     echo ($document . ',');
-                    // }
-                    // Close the database connection
-                    $conn->close();
-
-                    //   Example array structure: $documentListArray = array(array("id" => 1, "title" => "Document 1"), array("id" => 2, "title" => "Document 2"), ...)
                     $allDocumentListArray = array(
                         array("id" => "aadharCard", "title" => "Aadhar Card"),
                         array("id" => "dteConfirmation", "title" => "DTE Confirmation"),
@@ -165,24 +139,49 @@
                     // Function to generate HTML for document list
                     function generateDocumentList($documentList, $allDocumentList)
                     {
-                        $html = '';
+                        $html = '<hr>';
 
-                        foreach ($documentList as $document) {
-                            // Check if the document exists in the allDocumentListArray
-                            $found = false;
-                            foreach ($allDocumentList as $doc) {
-
-                                if ($doc['id'] === $document) {
-                                    $found = true;
-                                    $html .= '<p>' . $doc['title'] . '</p>';
-                                    $html .= '<form action="upload.php" method="post">'; // Assuming upload.php handles the reupload action
-                                    $html .= '<input type="hidden" name="document_id" value="' . $doc['id'] . '">';
-                                    $html .= '<input type="submit" name="reupload" value="Reupload">';
-                                    $html .= '</form>';
-                                    break;
+                        $html .= '<form action="reupload_docs.php" method="post" enctype="multipart/form-data" style="display: flex; flex-direction: column; align-items: center;">';
+                        $html .= '<hr>';
+                        
+                        if (empty($documentList)) {
+                            // Display a message indicating that there are no documents to reupload
+                            $html .= '<div style="display: flex; justify-content: center; align-items: center; height: 100px;">
+                    <h3 style="text-align: center;">No documents to reupload.</h3>
+                  </div>';
+                        } else {
+                            // Display the title and reupload button if there are documents to reupload
+                            $html .= '<div style="display: flex; justify-content: center; align-items: center; height: 100px;">
+                    <h3 style="text-align: center;">Reupload Documents</h3>
+                  </div>';
+                            $html .= '<table style="margin: 20px auto; border-collapse: separate; border-spacing: 0 1em;">';
+                            $html .= '<tbody>';
+                            foreach ($documentList as $document) {
+                                // Check if the document exists in the allDocumentListArray
+                                foreach ($allDocumentList as $doc) {
+                                    if ($doc['id'] === $document) {
+                                        $html .= '<tr>';
+                                        $html .= '<td style="padding-right: 20px;">' . $doc['title'] . '</td>';
+                                        $html .= '<td>';
+                                        $html .= '<div class="custom-uploader">';
+                                        $html .= '<input type="hidden" name="document_id[]" value="' . $doc['id'] . '">';
+                                        $html .= '<input type="file" name="document_' . $doc['id'] . '" required />';
+                                        $html .= '</div>';
+                                        $html .= '</td>';
+                                        $html .= '</tr>';
+                                        $html .= '<tr><td colspan="2" style="height: 20px;"></td></tr>'; // Add break line between each document
+                                        break;
+                                    }
                                 }
                             }
+                            $html .= '</tbody>';
+                            $html .= '</table>';
+                            $html .= '<div style="text-align:center; margin-top: 20px;">';
+                            $html .= '<input type="submit" name="reupload" value="Reupload" style="padding: 10px 20px; font-size: 16px; border-radius: 5px; Background-color: #8bd7ff;">';
+                            $html .= '</div>';
                         }
+
+                        $html .= '</form>';
 
                         return $html;
                     }
@@ -190,8 +189,9 @@
                     // Call the function with both arrays as arguments
                     echo generateDocumentList($documentListArray, $allDocumentListArray);
 
-
+                    $conn->close();
                     ?>
+
 
 
                 </div>
